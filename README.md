@@ -19,43 +19,51 @@ STEP-5: Display the cipher text obtained above.
 
 ## PROGRAM:
 ```
-#include <stdio.h> 
-#include <ctype.h> // for isupper(), islower() 
- 
-void encrypt(char text[], int shift) { 
-    for (int i = 0; text[i] != '\0'; i++) { 
-        if (isupper(text[i])) { 
-            text[i] = (text[i] - 'A' + shift) % 26 + 'A'; 
-        } 
-        else if (islower(text[i])) { 
-            text[i] = (text[i] - 'a' + shift) % 26 + 'a'; 
-        } 
-    } 
-} 
-// Function to decrypt text 
-void decrypt(char text[], int shift) { 
-    for (int i = 0; text[i] != '\0'; i++) { 
-        if (isupper(text[i])) { 
-            text[i] = (text[i] - 'A' - shift + 26) % 26 + 'A'; 
-        } 
-        else if (islower(text[i])) { 
-            text[i] = (text[i] - 'a' - shift + 26) % 26 + 'a'; 
-        } 
-    } 
-} 
-int main() { 
-char text[100]; 
-int shift; 
-printf("Enter a message: "); 
-fgets(text, sizeof(text), stdin); // read input including spaces 
-printf("Enter shift key: "); 
-scanf("%d", &shift); 
-encrypt(text, shift); 
-printf("Encrypted text: %s", text); 
-decrypt(text, shift); 
-printf("Decrypted text: %s", text); 
-return 0; 
+#include <stdio.h>
+
+int main() {
+    char text[100];
+    int shift;
+
+    printf("Enter a message: ");
+    fgets(text, sizeof(text), stdin);
+
+    printf("Enter shift value: ");
+    scanf("%d", &shift);
+
+    for (int i = 0; text[i] != '\0'; i++) {
+        char ch = text[i];
+
+        if (ch >= 'A' && ch <= 'Z') {
+            ch = ((ch - 'A' + shift) % 26) + 'A';
+        }
+        else if (ch >= 'a' && ch <= 'z') {
+            ch = ((ch - 'a' + shift) % 26) + 'a';
+        }
+
+        text[i] = ch;
+    }
+
+    printf("Encrypted: %s", text);
+
+    for (int i = 0; text[i] != '\0'; i++) {
+        char ch = text[i];
+
+        if (ch >= 'A' && ch <= 'Z') {
+            ch = ((ch - 'A' - shift + 26) % 26) + 'A';
+        }
+        else if (ch >= 'a' && ch <= 'z') {
+            ch = ((ch - 'a' - shift + 26) % 26) + 'a';
+        }
+
+        text[i] = ch;
+    }
+
+    printf("Decrypted: %s", text);
+
+    return 0;
 }
+
 ```
 
 ## OUTPUT:
